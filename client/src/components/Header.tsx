@@ -6,7 +6,7 @@ const Header:React.FC = () => {
     <header className="bg-slate-200 shadow-md ">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <h1 className="text-slate-500 font-bold text-md sm:text-[1.6rem] flex flex-wrap">
-          <Link to='/'>Aashiyana</Link>
+          <Link to='/'><span className='text-slate-700'>Aashi</span><span className='text-slate-600'>yana</span></Link>
         </h1>
         <form action="" className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input type="text" placeholder="Search" className="bg-transparent focus:outline-none w-24 sm:w-64"></input>
