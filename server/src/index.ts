@@ -2,6 +2,7 @@ import express,{NextFunction, Request,Response} from 'express';
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import authRoute from './routes/authRoutes';
+import cors from 'cors';
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ mongoose.connect(process.env.DB!)
   .catch((e:Error)=>console.log(e));
 
 app.use(express.json());
+app.use(cors());
 
 app.get('/',(req:Request,res:Response)=>{
   res.send("Hello World");
