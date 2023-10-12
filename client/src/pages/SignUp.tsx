@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +9,7 @@ const SignUp: React.FC = () => {
     password: "",
   });
 
-  const [error, setError] = useState(""); // Add state to store error message
+  const [error, setError] = useState("");
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,14 +21,12 @@ const SignUp: React.FC = () => {
         },
       });
       
-      console.log(response.data); // Log the response data
+      console.log(response.data);
     } catch (err:any) {
-      // Handle errors
+     
       if (err.response) {
-        // The request was made, but the server responded with a status code that falls out of the range of 2xx
-        setError(err.response.data.error); // Set the error message
+        setError(err.response.data.error); 
       } else {
-        // There was an error in making the request
         setError("An error occurred. Please try again later.");
       }
     }
