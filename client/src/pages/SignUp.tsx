@@ -1,37 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import { Link , useNavigate } from "react-router-dom";
+import axios from "axios"; 
 
 const SignUp: React.FC = () => {
+  const [error,setError] = useState("");
+  const navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const [error, setError] = useState(""); // Add state to store error message
-
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       const response = await axios.post('http://localhost:4132/api/auth/sign-up', formData, {
         headers: {
           'Content-Type': 'application/json',
-        },
+        }
       });
-      
-      console.log(response.data); // Log the response data
+      console.log(response);
     } catch (err:any) {
-      // Handle errors
       if (err.response) {
-        // The request was made, but the server responded with a status code that falls out of the range of 2xx
-        setError(err.response.data.error); // Set the error message
+        setError(err.response.data.error);
       } else {
-        // There was an error in making the request
         setError("An error occurred. Please try again later.");
       }
     }
+    setLoading(false);
+    setError("");
+    navigate("/sign-in");
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,8 +73,8 @@ const SignUp: React.FC = () => {
           onChange={handleChange}
           value={formData.password}
         />
-        <button className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80" type="submit">
-          Sign Up
+        <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80" type="submit">
+          {loading ? "Loading..." : "Sign Up"}
         </button>
       </form>
       <div className="flex gap-2 mt-5">
@@ -83,6 +83,7 @@ const SignUp: React.FC = () => {
           <span className="text-blue-700 hover:underline">Sign In</span>
         </Link>
       </div>
+      {error && <p className="text-red-500 mt-5">{error}</p>}
     </div>
   );
 };
